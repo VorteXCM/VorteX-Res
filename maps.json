@@ -1,11 +1,12 @@
 [
   {
     "id": "moder-party-villa",
+    "iddocs": "Loading-Screen",
     "name": " Villa : Modern Party Villa",
     "version": "ویلا : ویلا مدرن برای پارتی",
     "description": "A free MLO for Ever.",
     "author": "VorteXRes",
-    "filesize": "Unknown",
+    "filesize": "",
     "download_url": "https://github.com/yourname/repo/releases/download/v1.2/vehiclepack1.zip",
     "tags": ["map","free"],
     "thumbnail": "assets/imgs/Modern-Villa.png"
