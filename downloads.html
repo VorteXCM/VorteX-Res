@@ -21,6 +21,7 @@
 
 <section>
   <h1 class="gradient">دانلود ریسورس‌ها</h1>
+  <p class="gradient">بزودی ریسورس ها و اسکیریپت ها اضافه میگردد</p>
   <div id="resource-list" class="grid grid-3"></div>
 </section>
 
@@ -68,7 +69,7 @@ volumeSlider.addEventListener('input', (e) => {
 </script>
 <script src="assets/js/main.js"></script>
 <script>
-fetch('resources.json')
+fetch('save.json')
   .then(res=>res.json())
   .then(data=>{
     const container = document.getElementById('resource-list');

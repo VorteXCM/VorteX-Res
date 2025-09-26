@@ -1,24 +1,3 @@
 [
-  {
-    "id": "veh1",
-    "name": "Vehicle Packks: City Cars",
-    "version": "1.2.0",
-    "description": "A collection of tuned city vehicles for roleplay.",
-    "author": "YourName",
-    "filesize": "42 MB",
-    "download_url": "https://github.com/yourname/repo/releases/download/v1.2/vehiclepack1.zip",
-    "tags": ["vehicles","rp"],
-    "thumbnail": "assets/imgs/vehiclepack1.jpg"
-  },
-  {
-    "id": "mapp_city_center",
-    "name": "Map: City Center",
-    "version": "0.9",
-    "description": "Expanded downtown map with interiors.",
-    "author": "MapperX",
-    "filesize": "150 MB",
-    "download_url": "https://example-cdn.com/maps/citycenter.zip",
-    "tags": ["map","city","interiors"],
-    "thumbnail": "assets/imgs/map_city_center.jpg"
-  }
+
 ]
