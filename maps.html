@@ -74,7 +74,7 @@ fetch('maps.json')
       const el = document.createElement('div');
       el.className = 'card';
       el.innerHTML = `    <div class="card">
-      <img src="${item.thumbnail}" alt="${item.name}" class="thumb"/>
+      <img style="width: 400px;height: 300px;" src="${item.thumbnail}" alt="${item.name}" class="thumb"/>
       <div class="card-body">
         <h3>${item.name} <small>${item.version}</small></h3>
         <p>${item.description}</p>
