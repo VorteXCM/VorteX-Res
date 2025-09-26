@@ -1,0 +1,81 @@
+:root {
+  --bg-dark: #0a0f1f;
+  --accent: #7f5af0;
+  --accent2: #2cb9ff;
+  --text: #e6eaf2;
+}
+body {
+  display: block; /* از flex حذف شد */
+  margin: 0;
+  font-family: 'Vazirmatn', sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 25% 25%, #111827, #0a0f1f 80%);
+}
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0; /* مطمئن شو چپ صفر است */
+  bottom: 0;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+  padding: 2rem 1rem;
+  overflow-y: auto;
+  box-sizing: border-box;
+  z-index: 100; /* همیشه بالاتر از محتوا */
+}
+.sidebar a {
+  display: block;
+  padding: .6rem 0;
+  color: var(--text);
+  text-decoration: none;
+  transition: color .3s;
+}
+.sidebar a:hover,
+.sidebar a.active { color: var(--accent2); }
+
+/* Main content */
+.main-content {
+  margin-left: 270px; /* حداقل عرض سایدبار + فاصله */
+  padding: 3rem 2rem;
+  max-width: 900px;
+  box-sizing: border-box;
+}
+
+h1, h2 {
+  background: linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+pre {
+  background: #1a1a2e;
+  padding: 1rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  direction: ltr;
+  text-align: left;
+  color: #cbd5e1;
+}
+#play-pause {
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(127,90,240,0.6);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+#play-pause:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(44,185,255,0.7);
+}
+
+#play-pause:active {
+  transform: scale(0.95);
+}

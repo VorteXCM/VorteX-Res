@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>مستندات | VorteX</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <script src="https://kit.fontawesome.com/0ebc5070c5.js" crossorigin="anonymous"></script>
+  <style>
+    /* --- Layout --- */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: sans-serif;
+    }
+
+    section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    footer {
+      background: rgba(0,0,0,0.4);
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(45deg,#4facfe,#00f2fe);
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform .2s;
+    }
+    .btn:hover { transform: scale(1.05); }
+
+    /* --- Modal --- */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,.25);
+      animation: scaleIn .3s ease;
+    }
+    @keyframes scaleIn {
+      from { transform: scale(.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* --- Timer Circle --- */
+    .circle {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 1rem auto;
+    }
+    .circle svg {
+      transform: rotate(-90deg);
+    }
+    .circle circle {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+    }
+    .circle .bg {
+      stroke: #eee;
+    }
+    .circle .progress {
+      stroke: url(#grad);
+      stroke-dasharray: 314;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1s linear;
+    }
+    .circle .time {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    /* Play/Pause Button */
+#play-pause {
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(127,90,240,0.6);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+#play-pause:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(44,185,255,0.7);
+}
+
+#play-pause:active {
+  transform: scale(0.95);
+}
+
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="index.html" class="logo">VorteX Res</a>
+    <nav>
+      <a href="downloads.html">دانلودها</a>
+      <a href="maps.html">مپ‌ها</a>
+      <a href="docs.html" class="active">مستندات</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <h1 class="gradient">Docs</h1>
+  <p class="lead">برای رفتن به صفحه مستندات روی دکمه زیر کلیک فرمایید!</p>
+  <button id="openModal" class="btn">مستندات</button>
+</section>
+
+<footer>© ۲۰۲۵ FiveM Hub</footer>
+
+<!-- Modal -->
+<div id="modal" class="modal" style="background: rgba(0,0,0,0.4);">
+  <div class="modal-content" style="background: rgba(0,0,0,0.4);">
+    <h2>در حال انتقال...</h2>
+    <div class="circle">
+      <svg width="120" height="120">
+        <defs>
+          <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4facfe"/>
+            <stop offset="100%" stop-color="#00f2fe"/>
+          </linearGradient>
+        </defs>
+        <circle class="bg" cx="60" cy="60" r="50"/>
+        <circle class="progress" cx="60" cy="60" r="50"/>
+      </svg>
+      <div class="time" id="time">5</div>
+    </div>
+    <p>لطفاً صبر کنید...</p>
+  </div>
+</div>
+
+<!-- Music Player -->
+<button id="music-toggle" class="music-toggle"><i class="fa-solid fa-music"></i></button>
+<div id="music-panel" class="music-panel">
+  <button id="play-pause"><i class="fa-solid fa-play"></i></button><br><br>
+  صدا: <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+</div>
+
+<script>
+document.getElementById("openModal").addEventListener("click", () => {
+  const modal = document.getElementById("modal");
+  modal.classList.add("active");
+  
+  let timeLeft = 5;
+  const timeEl = document.getElementById("time");
+  const progress = document.querySelector(".progress");
+  const circleLength = 2 * Math.PI * 50; // محیط دایره (r=50)
+  progress.style.strokeDasharray = circleLength;
+  
+  const timer = setInterval(() => {
+    timeLeft--;
+    timeEl.textContent = timeLeft;
+    progress.style.strokeDashoffset = circleLength * (1 - timeLeft / 5);
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      window.location.href = "docs/"; // تغییر آدرس صفحه مقصد
+    }
+  }, 1000);
+});
+</script>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

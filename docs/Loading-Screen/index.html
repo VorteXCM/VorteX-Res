@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نحوه‌ی استفاده | مستندات VorteX</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://kit.fontawesome.com/0ebc5070c5.js" crossorigin="anonymous"></script>
+<style>
+    #play-pause {
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(127,90,240,0.6);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+#play-pause:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(44,185,255,0.7);
+}
+
+#play-pause:active {
+  transform: scale(0.95);
+}
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <h2>مستندات</h2>
+  <a href="../index.html">مقدمه</a>
+  <a href="#">LoadingScreen</a>
+  <a href="../NoPixel-FullServer/">سرور کامل نوپیکسل</a>
+  <hr>
+  <a href="../index.html">← بازگشت به سایت اصلی</a>
+</nav>
+
+<main class="main-content">
+  <h1>نحوه‌ی استفاده</h1>
+  <p>بزودی آموزش و همینطور ریسورس لودینگ اسکیرین اضافه میگردد.</p>
+  <pre style="display: none;">ensure vortex-res</pre>
+  <p style="display: none;">تمام منابع اکنون در سرور شما فعال هستند.</p>
+</main>
+
+<button id="music-btn" style="position:fixed;bottom:20px;right:20px;background:linear-gradient(90deg,#7f5af0,#2cb9ff);border:none;color:#fff;border-radius:50%;width:50px;height:50px;cursor:pointer;z-index:9999;"><i class="fa-solid fa-music"></i></button>
+<div id="music-panel" style="display:none;position:fixed;bottom:80px;right:20px;background:rgba(0,0,0,0.6);padding:1rem;border-radius:10px;width:200px;text-align:center;z-index:9999;">
+  <audio id="music-player" src="assets/background.mp3" loop></audio>
+  <button id="play-pause"><i class="fa-solid fa-play"></i></button><br><br>
+  صدا: <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+</div>
+<script>
+const musicBtn = document.getElementById('music-btn');
+const musicPanel = document.getElementById('music-panel');
+const playPause = document.getElementById('play-pause');
+const audio = document.getElementById('music-player');
+const volumeSlider = document.getElementById('volume');
+
+// باز/بستن پنل موزیک با کلیک روی دکمه اصلی
+musicBtn.addEventListener('click', () => {
+  if(musicPanel.style.display === 'block'){
+    musicPanel.style.display = 'none';
+  } else {
+    musicPanel.style.display = 'block';
+  }
+});
+
+// پلی / پاز کردن موزیک
+playPause.addEventListener('click', () => {
+  if(audio.paused){
+    audio.play();
+    playPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  } else {
+    audio.pause();
+    playPause.innerHTML = '<i class="fa-solid fa-play"></i>';
+  }
+});
+
+// کنترل ولوم
+volumeSlider.addEventListener('input', (e) => {
+  audio.volume = e.target.value;
+});
+</script>
+
+</body>
+</html>
