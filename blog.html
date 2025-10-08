@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>وبلاگ | VorteX</title>
+
+<!-- CSS اصلی -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+<script src="https://kit.fontawesome.com/0ebc5070c5.js" crossorigin="anonymous"></script>
+
+<style>
+:root {
+  --accent1:#7f5af0;
+  --accent2:#2cb9ff;
+  --bg-dark:#0a0a0a;
+  --bg-light:#111;
+  --text-light:#fff;
+}
+
+/* بک‌گراند گرادینت متحرک */
+body{
+  margin:0;
+  font-family:"Vazirmatn",sans-serif;
+  background: linear-gradient(270deg,#0a0a0a,#1a1a1a,#0a0a0a);
+  background-size:600% 600%;
+  animation:bgShift 20s ease infinite;
+  color: var(--text-light);
+  overflow-x:hidden;
+}
+
+@keyframes bgShift {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+a{ text-decoration:none; color: var(--accent2); transition:0.3s;}
+a:hover{ color: var(--accent1);}
+
+/* Header */
+.blog-header{
+  text-align:center;
+  padding:4rem 2rem 2rem;
+  font-size:2.4rem;
+  font-weight:bold;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:fadeInText 2s ease forwards;
+  opacity:0;
+}
+@keyframes fadeInText{0%{opacity:0;transform:translateY(-20px);}100%{opacity:1;transform:translateY(0);}}
+
+/* Container */
+.blog-container{
+  max-width:1000px;
+  margin:auto;
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  padding:2rem;
+}
+
+/* Main blog content */
+.blog-main{
+  flex:2;
+  background: rgba(255,255,255,0.05);
+  border-radius:15px;
+  padding:2rem;
+  box-shadow:0 0 25px rgba(127,90,240,0.3);
+  transition:0.4s;
+}
+.blog-main h1{
+  color:#7f5af0;
+  margin-bottom:1rem;
+}
+.blog-main p{
+  margin-bottom:1rem;
+  opacity:0;
+  transform: translateY(20px);
+  animation:fadeInContent 1s ease forwards;
+  animation-delay:0.5s;
+}
+@keyframes fadeInContent{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
+
+/* Sidebar */
+.blog-sidebar{
+  flex:1;
+  background: rgba(255,255,255,0.05);
+  border-radius:15px;
+  padding:1.5rem;
+  box-shadow:0 0 20px rgba(44,185,255,0.2);
+}
+.blog-sidebar h3{margin-top:0;color:#2cb9ff;}
+.blog-sidebar ul{list-style:none;padding:0;}
+.blog-sidebar ul li{margin:0.5rem 0;}
+.blog-sidebar ul li a{color:#fff;}
+
+/* Image Zoom */
+.blog-image{
+  width:100%;
+  border-radius:10px;
+  margin:1rem 0;
+  cursor:pointer;
+  transition:0.3s;
+}
+.blog-image:hover{transform:scale(1.05);}
+
+/* Like Button */
+.btn-like{
+  display:inline-block;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  color:#fff;
+  padding:0.5rem 1rem;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.btn-like:hover{transform:scale(1.05);}
+
+/* Comment Section */
+.comments{
+  margin-top:2rem;
+}
+.comments input, .comments textarea{
+  width:100%;
+  margin:0.5rem 0;
+  padding:0.5rem;
+  border-radius:5px;
+  border:none;
+}
+.comments button{
+  padding:0.5rem 1rem;
+  border:none;
+  border-radius:10px;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  color:#fff;
+  cursor:pointer;
+  transition:0.3s;
+}
+.comments button:hover{transform:scale(1.05);}
+
+/* Back Button */
+.back-btn{display:inline-block;margin-bottom:1rem;color:#2cb9ff;}
+
+@media(max-width:900px){
+  .blog-container{flex-direction:column;}
+  .blog-sidebar{order:-1;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="blog-header" id="blog-title">در حال بارگذاری...</div>
+
+<div class="blog-container">
+  <div class="blog-main" id="blog-content">
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-right"></i> بازگشت</a>
+    <h1>در حال بارگذاری...</h1>
+  </div>
+
+  <div class="blog-sidebar" id="blog-sidebar">
+    <h3>مطالب مرتبط</h3>
+    <ul id="related-blogs"></ul>
+  </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({duration:800,once:true});
+</script>
+
+<script>
+// GitHub Settings
+const owner = 'VortexCM';
+const repo = 'VorteX-Res';
+const likesFile = 'assets/data/likes.json';
+const commentsFile = 'assets/data/comments.json';
+const branch = 'main';
+const token = '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'; // ⚠️ ایمن نگه دارید
+
+const blogId = new URLSearchParams(window.location.search).get('id');
+const contentEl = document.getElementById('blog-content');
+const titleEl = document.getElementById('blog-title');
+const relatedEl = document.getElementById('related-blogs');
+
+async function loadBlog(){
+  const res = await fetch(`assets/data/blogs.json`);
+  const blogs = await res.json();
+  const blog = blogs.find(b=>b.id==blogId);
+
+  if(blog){
+    titleEl.textContent = blog.title;
+    contentEl.innerHTML = `
+      <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-right"></i> بازگشت</a>
+      <h1>${blog.title}</h1>
+      <img src="${blog.image||'assets/imgs/gta-map.jpg'}" class="blog-image" onclick="zoomImage(this)">
+      <p>${blog.content}</p>
+      <button class="btn-like" onclick="likePost(this)">👍 لایک (<span class="like-count">0</span>)</button>
+      <div class="comments">
+        <h3>کامنت‌ها</h3>
+        <div id="comment-list"></div>
+        <input type="text" id="comment-name" placeholder="نام شما">
+        <textarea id="comment-text" placeholder="متن کامنت"></textarea>
+        <button id="btn-comment">ارسال کامنت</button>
+      </div>
+    `;
+
+    // Related blogs
+    relatedEl.innerHTML='';
+    blogs.filter(b=>b.id!=blogId).forEach(b=>{
+      const li = document.createElement('li');
+      li.innerHTML=`<a href="blog.html?id=${b.id}">${b.title}</a>`;
+      relatedEl.appendChild(li);
+    });
+
+    fetchLikes();
+    fetchComments();
+  } else {
+    contentEl.innerHTML='<p>وبلاگ موردنظر یافت نشد.</p>';
+  }
+}
+
+// Like Button
+async function fetchLikes(){
+  const fileRes = await fetch(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${likesFile}`);
+  const data = await fileRes.json();
+  const countEl = contentEl.querySelector('.like-count');
+  if(countEl) countEl.textContent = data[blogId] || 0;
+}
+
+async function likePost(btn){
+  // Fetch SHA
+  const fileRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${likesFile}`);
+  const fileData = await fileRes.json();
+  const likes = await (await fetch(fileData.download_url)).json();
+  likes[blogId] = (likes[blogId]||0)+1;
+
+  await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${likesFile}`,{
+    method:'PUT',
+    headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
+    body:JSON.stringify({
+      message:`Like blog ${blogId}`,
+      content:btoa(JSON.stringify(likes,null,2)),
+      sha:fileData.sha,
+      branch
+    })
+  });
+  fetchLikes();
+}
+
+// Comments
+async function fetchComments(){
+  const fileRes = await fetch(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${commentsFile}`);
+  const data = await fileRes.json();
+  const list = document.getElementById('comment-list');
+  list.innerHTML='';
+  (data[blogId]||[]).forEach(c=>{
+    const div = document.createElement('div');
+    div.innerHTML=`<strong>${c.name}</strong> (${c.time}):<br>${c.text}`;
+    list.appendChild(div);
+  });
+}
+
+document.addEventListener('click', async e=>{
+  if(e.target && e.target.id==='btn-comment'){
+    const name = document.getElementById('comment-name').value.trim();
+    const text = document.getElementById('comment-text').value.trim();
+    if(!name||!text) return alert('نام و متن کامنت را وارد کنید');
+
+    const fileRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${commentsFile}`);
+    const fileData = await fileRes.json();
+    const comments = await (await fetch(fileData.download_url)).json();
+
+    const newComment={name,text,time:new Date().toLocaleString()};
+    if(!comments[blogId]) comments[blogId]=[];
+    comments[blogId].push(newComment);
+
+    await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${commentsFile}`,{
+      method:'PUT',
+      headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
+      body:JSON.stringify({
+        message:`Comment blog ${blogId}`,
+        content:btoa(JSON.stringify(comments,null,2)),
+        sha:fileData.sha,
+        branch
+      })
+    });
+
+    document.getElementById('comment-name').value='';
+    document.getElementById('comment-text').value='';
+    fetchComments();
+  }
+});
+
+// Image Zoom
+function zoomImage(img){
+  const overlay=document.createElement('div');
+  overlay.style.position='fixed';
+  overlay.style.top=0;
+  overlay.style.left=0;
+  overlay.style.width='100%';
+  overlay.style.height='100%';
+  overlay.style.background='rgba(0,0,0,0.8)';
+  overlay.style.display='flex';
+  overlay.style.alignItems='center';
+  overlay.style.justifyContent='center';
+  overlay.style.zIndex=9999;
+  overlay.onclick=()=>document.body.removeChild(overlay);
+  const zoomed=img.cloneNode();
+  zoomed.style.maxWidth='90%';
+  zoomed.style.maxHeight='90%';
+  zoomed.style.borderRadius='10px';
+  overlay.appendChild(zoomed);
+  document.body.appendChild(overlay);
+}
+
+// Load blog
+loadBlog();
+</script>
+</body>
+</html>

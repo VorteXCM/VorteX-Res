@@ -1,124 +1,221 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>VorteX | منبعی برای دانلود اسکیریپت و مپ ...</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="https://kit.fontawesome.com/0ebc5070c5.js" crossorigin="anonymous"></script>
-  <style>
-    /* سبک ساده برای تصاویر نئونی */
-    .hero-images {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    .hero-images img {
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(127,90,240,0.5);
-      max-width: 100%;
-      height: auto;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .hero-images img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 35px rgba(44,185,255,0.7);
-    }
-        /* Play/Pause Button */
-#play-pause {
-  background: linear-gradient(90deg,var(--accent1),var(--accent2));
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1.2rem;
-  border-radius: 9999px;
-  font-size: 1.1rem;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VorteX | منبعی برای دانلود اسکریپت و مپ ...</title>
+
+<!-- CSS اصلی -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+<script src="https://kit.fontawesome.com/0ebc5070c5.js" crossorigin="anonymous"></script>
+
+<style>
+:root {
+  --accent1: #7f5af0;
+  --accent2: #2cb9ff;
+  --bg-dark: #0a0a0a;
+  --bg-light: #f5f5f5;
+  --text-dark: #111;
+  --text-light: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: "Vazirmatn", sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  transition: background 0.4s, color 0.4s;
+  overflow-x: hidden;
+}
+
+body.light {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+/* Header */
+header {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+nav a {
+  color: inherit;
+  margin: 0 1rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+nav a:hover { color: var(--accent2); }
+.logo {
   font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 12px rgba(127,90,240,0.6);
-  transition: all 0.3s ease;
-  width: 100%;
+  font-size: 1.6rem;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-#play-pause:hover {
+/* Hero Image */
+.hero-section {
+  text-align:center;
+  padding:4rem 2rem;
+}
+.hero-images img {
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(127,90,240,0.5);
+  max-width: 100%;
+  transition: 0.3s;
+}
+.hero-images img:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 18px rgba(44,185,255,0.7);
+  box-shadow: 0 0 35px rgba(44,185,255,0.7);
 }
 
-#play-pause:active {
-  transform: scale(0.95);
+/* Content Section with Sidebar */
+.content-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 90%;
+  margin: 3rem auto;
 }
-  </style>
+.side-nav {
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 200px;
+  text-align: right;
+}
+.side-nav button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: right;
+  padding:0.4rem 0;
+  border-radius:5px;
+  transition:0.3s;
+}
+.side-nav button.active,
+.side-nav button:hover { color: var(--accent2); background: rgba(127,90,240,0.1); }
+
+.content-box {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 0 15px rgba(127,90,240,0.3);
+  min-height: 320px;
+  transition: 0.4s;
+}
+
+/* Blog preview inside box */
+.blog-preview { border-bottom:1px solid rgba(255,255,255,0.1); padding:0.8rem 0; }
+.blog-preview h3 { margin:0; }
+.btn { display:inline-block; background: linear-gradient(90deg, var(--accent1), var(--accent2)); color:#fff; text-decoration:none; padding:0.6rem 1.2rem; border-radius:10px; margin-top:0.3rem; transition:0.3s; }
+.btn:hover { transform: scale(1.05); }
+
+/* Footer */
+footer { text-align:center; padding:2rem; opacity:0.7; }
+
+/* Music Button */
+#music-btn.playing { animation: pulse 1.5s infinite; }
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(127,90,240,0.6); }
+  50% { box-shadow: 0 0 30px rgba(44,185,255,0.8); }
+  100% { box-shadow: 0 0 10px rgba(127,90,240,0.6); }
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <div class="container">
-      <a href="index.html" class="logo">VorteX Res</a>
-      <nav>
-        <a href="downloads.html">دانلودها</a>
-        <a href="maps.html">مپ‌ها</a>
-        <a href="docs.html">مستندات</a>
-      </nav>
-    </div>
-  </header>
+<div id="particles-js" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;"></div>
 
-  <section style="text-align:center; padding:4rem 2rem;">
-    <h1 class="gradient">VorteX Resources</h1>
-    <p class="lead">ریسورس، اسکریپت و مپ‌های حرفه‌ای برای سرور شما</p>
-    <a class="btn" href="downloads.html">شروع</a>
-
-<div class="hero-images">
-  <!-- Map container برای اسکرول داخلی -->
-  <div class="image-container">
-    <img src="assets/imgs/gta-map.jpg" alt="GTA V Map" class="zoomable">
+<header>
+  <div class="container">
+    <a href="index.html" class="logo">VorteX Res</a>
+    <nav>
+      <a href="downloads.html">دانلودها</a>
+      <a href="maps.html">مپ‌ها</a>
+      <a href="docs.html">مستندات</a>
+    </nav>
   </div>
+</header>
 
-  </section>
+<section class="hero-section" data-aos="fade-up">
+  <h1>VorteX Resources</h1>
+  <p>ریسورس، اسکریپت و مپ‌های حرفه‌ای برای سرور شما</p>
+  <a class="btn" href="downloads.html">شروع</a>
+  <div class="hero-images">
+    <img src="assets/imgs/gta-map.jpg" alt="GTA Map">
+  </div>
+</section>
 
-  <footer>© ۲۰۲۵ VorteX Res</footer>
+<section class="content-section" data-aos="fade-up">
+  <div class="side-nav">
+    <button class="active" data-section="about">درباره ما</button>
+    <button data-section="faq">سوالات متداول</button>
+    <button data-section="blog">وبلاگ</button>
+  </div>
+  <div class="content-box" id="dynamic-content">
+    <h2>درباره VorteX</h2>
+    <p>
+      VorteX یک منبع آزاد و قدرتمند برای علاقه‌مندان به توسعه سرورهای بازی است.  
+      ما با هدف ساده‌سازی دسترسی به ریسورس‌ها، اسکریپت‌ها و مپ‌های باکیفیت، این پلتفرم را ساختیم.
+    </p>
+  </div>
+</section>
 
-  <!-- Music & Particles -->
-<button id="music-btn" style="position:fixed;bottom:20px;right:20px;background:linear-gradient(90deg,#7f5af0,#2cb9ff);border:none;color:#fff;border-radius:50%;width:50px;height:50px;cursor:pointer;z-index:9999;"><i class="fa-solid fa-music"></i></button>
-<div id="music-panel" style="display:none;position:fixed;bottom:80px;right:20px;background:rgba(0,0,0,0.6);padding:1rem;border-radius:10px;width:200px;text-align:center;z-index:9999;">
-  <audio id="music-player" src="assets/music/background.mp3" loop></audio>
-  <button id="play-pause"><i class="fa-solid fa-play"></i></button><br><br>
-  صدا: <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
-</div>
+<footer>© ۲۰۲۵ VorteX Res</footer>
 
-  <script>
-const musicBtn = document.getElementById('music-btn');
-const musicPanel = document.getElementById('music-panel');
-const playPause = document.getElementById('play-pause');
-const audio = document.getElementById('music-player');
-const volumeSlider = document.getElementById('volume');
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@3"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-// باز/بستن پنل موزیک با کلیک روی دکمه اصلی
-musicBtn.addEventListener('click', () => {
-  if(musicPanel.style.display === 'block'){
-    musicPanel.style.display = 'none';
-  } else {
-    musicPanel.style.display = 'block';
-  }
-});
+<script>
+  tsParticles.load("particles-js", { particles:{number:{value:60}, color:{value:"#7f5af0"}, move:{enable:true,speed:1.5}, links:{enable:true,color:"#2cb9ff"}}, background:{color:"transparent"} });
+  AOS.init({duration:800,once:true});
 
-// پلی / پاز کردن موزیک
-playPause.addEventListener('click', () => {
-  if(audio.paused){
-    audio.play();
-    playPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
-  } else {
-    audio.pause();
-    playPause.innerHTML = '<i class="fa-solid fa-play"></i>';
-  }
-});
+  const buttons = document.querySelectorAll('.side-nav button');
+  const contentBox = document.getElementById('dynamic-content');
 
-// کنترل ولوم
-volumeSlider.addEventListener('input', (e) => {
-  audio.volume = e.target.value;
-});
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const section=btn.dataset.section;
+
+      if(section==='about'){
+        contentBox.innerHTML=`<h2>درباره VorteX</h2><p>VorteX یک پلتفرم برای گیمرها و توسعه‌دهندگان است تا بتوانند به آسانی منابع، اسکریپت‌ها و مپ‌های حرفه‌ای را دانلود کنند. تیم ما به صورت مداوم در حال بروزرسانی ابزارها برای جامعه گیمرهاست.</p>`;
+      } else if(section==='faq'){
+        contentBox.innerHTML=`<h2>سوالات متداول</h2>
+        <div class="faq-item"><strong>❓ چگونه اسکریپت‌ها را نصب کنیم؟</strong><br> فایل را در پوشه resources قرار دهید.</div>
+        <div class="faq-item"><strong>❓ آیا رایگان هستند؟</strong><br> بله، اکثر آن‌ها رایگان و اوپن سورس‌اند.</div>
+        <div class="faq-item"><strong>❓ چگونه می‌توانم محتوای خودم را ارسال کنم؟</strong><br> بزودی بخش ارسال محتوا برای کاربران فعال می‌شود.</div>`;
+      } else if(section==='blog'){
+        const res = await fetch('blogs.json');
+        const blogs = await res.json();
+        let html = `<h2>آخرین وبلاگ‌ها</h2>`;
+        blogs.forEach(blog=>{html+=`<div class="blog-preview"><h3>${blog.title}</h3><p>${blog.summary}</p><a href="blog.html?id=${blog.id}" class="btn">مشاهده کامل</a></div>`;});
+        contentBox.innerHTML=html;
+      }
+    });
+  });
 </script>
-
-  <script src="assets/js/main.js"></script>
 </body>
 </html>
