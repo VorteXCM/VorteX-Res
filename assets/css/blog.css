@@ -1,0 +1,130 @@
+:root{
+  --accent1:#7f5af0;
+  --accent2:#2cb9ff;
+  --bg-dark:#0a0a0a;
+  --bg-light:#f4f4f4;
+  --text-light:#fff;
+  --text-dark:#111;
+}
+body{
+  margin:0;
+  font-family:"Vazirmatn",sans-serif;
+  background: linear-gradient(270deg,#0a0a0a,#1a1a1a,#0a0a0a);
+  background-size:600% 600%;
+  animation:bgShift 20s ease infinite;
+  color: var(--text-light);
+  overflow-x:hidden;
+  transition: background 0.5s, color 0.5s;
+      /* تصویر بکگراند اصلی */
+  background: url('background.png') no-repeat center center fixed;
+  background-size: cover; /* پوشش کامل صفحه */
+}
+@keyframes bgShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+a{text-decoration:none; color: var(--accent2); transition:0.3s;}
+a:hover{color: var(--accent1);}
+
+.blog-header{
+  text-align:center;
+  padding:4rem 2rem 2rem;
+  font-size:2.4rem;
+  font-weight:bold;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:fadeInText 2s ease forwards;
+  opacity:0;
+}
+@keyframes fadeInText{
+  0%{opacity:0; transform:translateY(-20px);}
+  100%{opacity:1; transform:translateY(0);}
+}
+
+.blog-container{
+  max-width:1000px;
+  margin:auto;
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  padding:2rem;
+}
+
+.blog-main{
+  flex:2;
+  background: rgb(54, 54, 54);
+  border-radius:15px;
+  padding:2rem;
+  box-shadow:0 0 25px rgba(127,90,240,0.3);
+  transition:0.4s;
+}
+.blog-main h1{color:#7f5af0; margin-bottom:1rem;}
+.blog-main p{margin-bottom:1rem; opacity:0; transform: translateY(20px); animation:fadeInContent 1s ease forwards;}
+@keyframes fadeInContent{0%{opacity:0; transform:translateY(20px);}100%{opacity:1; transform:translateY(0);}}
+
+.blog-sidebar{
+  flex:1;
+  background: rgb(54, 54, 54);
+  border-radius:15px;
+  padding:1.5rem;
+  box-shadow:0 0 20px rgba(44,185,255,0.2);
+  position: sticky;
+  top:20px;
+  height:max-content;
+}
+.blog-sidebar h3{margin-top:0; color:#2cb9ff;}
+.blog-sidebar ul{list-style:none; padding:0;}
+.blog-sidebar ul li{margin:0.5rem 0;}
+.blog-sidebar ul li a{color:#fff; transition:0.3s;}
+.blog-sidebar ul li a:hover{color:#2cb9ff;}
+
+.blog-image{
+  width:100%;
+  border-radius:10px;
+  margin:1rem 0;
+  cursor:pointer;
+  transition:0.3s;
+}
+.blog-image:hover{transform:scale(1.05);}
+
+.back-btn{display:inline-block;margin-bottom:1rem;color:#2cb9ff;}
+
+.dark-mode{
+  background: var(--bg-dark);
+  color: var(--text-light);
+      /* تصویر بکگراند اصلی */
+  background: url('background.png') no-repeat center center fixed;
+  background-size: cover; /* پوشش کامل صفحه */
+}
+.light-mode{
+  background: var(--bg-light);
+  color: var(--text-dark);
+      /* تصویر بکگراند اصلی */
+  background: url('background.png') no-repeat center center fixed;
+  background-size: cover; /* پوشش کامل صفحه */
+}
+
+#scroll-progress{
+  position:fixed;
+  top:0; left:0;
+  height:5px;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  width:0%;
+  z-index:9999;
+  transition:width 0.25s ease-out;
+}
+
+.highlight{background: rgba(255,255,0,0.3);}
+.highlight-btn{
+  display:inline-block;
+  padding:0.2rem 0.5rem;
+  margin-top:0.5rem;
+  background: var(--accent1);
+  color:#fff;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:0.9rem;
+}
