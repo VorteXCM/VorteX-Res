@@ -3,7 +3,9 @@ AOS.init({duration:800,once:true});
 // داده های وبلاگ نمونه
 const blogs = [
   {id:"2",title:"اولین مپ",content:"اولین مپ سایت VorteX اضافه گردید روی دکمه زیر بزن تا به بخش مپ بری",image:"assets/imgs/gta-map.jpg",link:"DLMAP/maps.html?id=moder-party-villa"},
-  {id:"1",title:"بروزرسانی سایت",content:"سایت ما به تازگی بخش درباره ما، سوالات متداول و وبلاگ اضافه کرده و همینطور صفحه ای جدید برای وبلاگ های سایت اضافه شده",image:"assets/imgs/blog.png",link:"../VorteX-Res"}
+  {id:"1",title:"بروزرسانی سایت",content:"سایت ما به تازگی بخش درباره ما، سوالات متداول و وبلاگ اضافه کرده و همینطور صفحه ای جدید برای وبلاگ های سایت اضافه شده",image:"assets/imgs/blog.png",link:"../VorteX-Res"},
+  {id:"3",title:"LBphone اضافه گردید",content:"یک اسکیریپت و یا ریسورس گوشی جدید اضافه گردید",descon:"این ریسورس اسمش LBPhone هست اما اون ریسورس هایی که در اینترنت موجود هست خراب هستند و یا کار نمیکنند اما این ریسورس تست شده وکار میکنه و برای تغییر اسم ها و برنامه ها باید یک کد نویسی و یا در همان حد تغییر اسم و یک برنامه کد نویسی مثل VSCode داشته باشید که آن برنامه را میتوانید از سایت اصلی خود برنامه دانلود کنید.",image:"assets/imgs/lbphone.jpg",link:"DL/download.html?id=LB-Phone"},
+  {id:"3",title:"Road Phone اضفه گردید",content:"یک گوشی جدید به اسم Road Phone به سایت اضافه شد",descon:"این ریسورس اسمش Road Phone هست اما اون ریسورس هایی که در اینترنت موجود هست خراب هستند و یا کار نمیکنند اما این ریسورس تست شده وکار میکنه و برای تغییر اسم ها و برنامه ها باید یک کد نویسی و یا در همان حد تغییر اسم و یک برنامه کد نویسی مثل VSCode داشته باشید که آن برنامه را میتوانید از سایت اصلی خود برنامه دانلود کنید.",image:"assets/imgs/roadphone.jpg",link:"DL/download.html?id=Road-Phone"}
 ];
 
 const blogId = new URLSearchParams(window.location.search).get('id') || "1";
@@ -24,6 +26,7 @@ if(blog){
     <h1>${blog.title}</h1>
     <img src="${blog.image}" class="blog-image" onclick="zoomImage(this)">
     <p>${blog.content}</p>
+    <p style="color: rgba(117, 114, 114, 1);">${blog.descon}</p>
     ${fullLinkButton}
   `;
 
