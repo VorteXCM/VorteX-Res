@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introduction | VorteX</title> documentation
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://kit.fontawesome.com/0ebc5070c5.js" crossorigin="anonymous"></script>
+<style> 
+#play-pause { 
+background: linear-gradient(90deg,var(--accent1),var(--accent2)); 
+color: #fff; 
+border: none; 
+padding: 0.7rem 1.2rem; 
+border-radius: 9999px; 
+font-size: 1.1rem; 
+font-weight: bold; 
+cursor: pointer; 
+box-shadow: 0 0 12px rgba(127,90,240,0.6); 
+transition: all 0.3s ease; 
+width: 100%;
+}
+
+#play-pause:hover { 
+transform: scale(1.05); 
+box-shadow: 0 0 18px rgba(44,185,255,0.7);
+}
+
+#play-pause:active { 
+transform: scale(0.95);
+}
+</style>
+</head>
+<body>
+<nav class="sidebar">
+<h2>Documentation</h2>
+<a href="index.html" class="active">Introduction</a>
+<a href="Loading-Screen/">LoadingScreen</a>
+<a href="NoPixel-FullServer/">NoPixel Full Server</a>
+<hr>
+<a href="../index.html">← Return to main site</a>
+</nav>
+
+<main class="main-content">
+<h1>Introduction</h1>
+
+<!-- Normal text -->
+<p>
+Welcome to the <strong>VorteX Rex</strong> website! This site is a complete reference for all VMP, Fivem, IRfive enthusiasts. Our goal is to provide resources, scripts, maps and ready-made servers in one place so that you can easily download and use them.
+</p>
+
+<!-- Part inside pre -->
+<pre>
+# Sample resource installation code
+1. Download the resource zip file
+2. Place it in your server's resources folder
+3. Add the resource name to server.cfg:
+
+start my_resource
+
+4. Restart the server
+</pre>
+
+<!-- Continue normal text -->
+<p>
+You can use the following links to quickly access different sections:
+</p>
+<ul>
+<li><a href="Loading-Screen/">LoadingScreen</a> - Download and install the loading screen</li>
+<li><a href="NoPixel-FullServer/">NoPixel Full Server</a> - Ready-made server with full configuration</li>
+<li><a href="../maps.html">Maps</a> - A collection of ready-made cities and environments</li>
+<li><a href="../downloads.html">Scripts</a> - Various plugins and modules</li>
+</ul>
+
+<p>
+VorteX Rex tries to gather all the tools and tutorials in one place so that you can create your own servers and have the full VMP, Fivem, IRfive experience without having to search too much.
+</p>
+
+<!-- Another section with pre to display config files or other examples -->
+<pre>
+# Example server settings
+sv_hostname "My VMP, Fivem, IRfive Server"
+rcon_password "12345"
+start mapmanager
+start chat
+start spawnmanager
+</pre>
+
+<p>
+We invite you to explore all sections of the site and use the resources provided to experience the world of VMP, Fivem, IRfive in a professional way.
+</p>
+</main>
+
+
+<button id="music-btn" style="position:fixed;bottom:20px;right:20px;background:linear-gradient(90deg,#7f5af0,#2cb9ff);border:none;color:#fff;border-radius:50%;width:50px;height:50px;cursor:pointer;z-index:9999;"><i class="fa-solid fa-music"></i></button>
+<div id="music-panel" style="display:none;position:fixed;bottom:80px;right:20px;background:rgba(0,0,0,0.6);padding:1rem;border-radius:10px;width:200px;text-align:center;z-index:9999;"> 
+<audio id="music-player" src="../assets/music/background.mp3" loop></audio> 
+<button id="play-pause"><i class="fa-solid fa-play"></i></button><br><br> 
+Volume: <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+</div>
+<script>
+const musicBtn = document.getElementById('music-btn');
+const musicPanel = document.getElementById('music-panel');
+const playPause = document.getElementById('play-pause');
+const audio = document.getElementById('music-player');
+const volumeSlider = document.getElementById('volume');
+
+// Open/close the music panel by clicking the main button
+musicBtn.addEventListener('click', () => {
+if(musicPanel.style.display === 'block'){
+musicPanel.style.display = 'none';
+} else {
+musicPanel.style.display = 'block';
+}
+});
+
+// Play/pause music
+playPause.addEventListener('click', () => {
+if(audio.paused){
+audio.play();
+playPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
+} else {
+audio.pause();
+playPause.innerHTML = '<i class="fa-solid fa-play"></i>';
+}
+});
+
+// Volume control
+volumeSlider.addEventListener('input', (e) => {
+audio.volume = e.target.value;
+});
+</script>
+</body>
+</html>

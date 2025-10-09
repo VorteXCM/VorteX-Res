@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Download Details | VorteX</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* ==== Dedicated to the download page ==== */
+.hero-header {
+padding-top: 7rem;
+text-align: center;
+}
+.hero-header h1 {
+font-size: 3rem;
+background: linear-gradient(90deg,var(--accent1),var(--accent2));
+-webkit-background-clip:text;
+color:transparent;
+margin-bottom:0.5rem;
+}
+.hero-header p.lead {
+font-size:1.2rem;
+opacity: 0.85; 
+margin-bottom:2rem; 
+} 
+
+.detail-wrapper { 
+max-width: 1000px; 
+margin: 2rem auto 4rem; 
+display: grid; 
+gap: 2rem; 
+grid-template-columns: 1fr 350px; 
+padding: 0 1rem; 
+} 
+@media(max-width:900px){ 
+.detail-wrapper {grid-template-columns: 1fr;} 
+} 
+
+.detail-main { 
+background: rgba(255,255,255,0.05); 
+background-filter: blur(12px); 
+border-radius: 20px; 
+padding: 2rem; 
+} 
+.detail-main img { 
+width: 100%; 
+border-radius: 14px; 
+margin-bottom: 1.5rem; 
+box-shadow:0 0 20px rgba(0,0,0,0.4); 
+} 
+.detail-main h2 { 
+color: var(--accent2); 
+margin-bottom: .8rem; 
+} 
+.detail-main p { 
+line-height: 1.8; 
+margin-bottom: 1rem; 
+} 
+.tags span { 
+display:inline-block; 
+background: rgba(255,255,255,0.1); 
+padding: .4rem .8rem; 
+border-radius: 9999px; 
+margin: .2rem; 
+font-size: .85 rem; 
+} 
+
+.side-box { 
+background: rgba(255,255,255,0.07); 
+background-filter: blur(10px); 
+border-radius: 20px; 
+padding: 1.5 rem; 
+text-align: center; 
+height: fit-content; 
+} 
+.side-box h3 { 
+margin-bottom: 1rem; 
+color: var(--accent1); 
+} 
+.info-line { 
+margin: .4rem 0; 
+font-size: .95 rem; 
+opacity: .9; 
+} 
+.btn-download { 
+display:inline-block; 
+margin-top:1.2rem; 
+padding: 1rem 2rem; 
+background: linear-gradient(90deg,var(--accent1),var(--accent2)); 
+color:#fff; 
+text-decoration: none; 
+font-weight: bold; 
+border-radius: 9999px; 
+box-shadow:0 0 12px rgba(127,90,240,0.5); 
+transition: transform .3s; 
+}
+.btn-download:hover {transform:scale(1.05);}
+</style>
+</head>
+<body>
+<header>
+<div class="container">
+<a href="../index.html" class="logo">VorteX Res</a>
+<nav>
+<a href="../downloads.html">Downloads</a>
+<a href="../maps.html">Maps</a>
+<a href="../docs.html">Documents</a>
+</nav>
+</div>
+</header>
+
+<section class="hero-header">
+<h1 id="title">Loading...</h1>
+<p class="lead" id="subtitle"></p>
+</section>
+
+<section class="detail-wrapper" id="resource-detail">
+<!-- The content of the resource will be placed here after loading -->
+</section>
+
+<footer>© 2025 FiveM Hub</footer>
+
+<script>
+const id = new URLSearchParams(location.search).get('id');
+
+fetch('../resources.json')
+.then(r=>r.json())
+.then(list=>{
+const item = list.find(r=>r.id===id);
+const container = document.getElementById('resource-detail');
+
+if (!item) {
+document.getElementById('title').textContent = "Item not found";
+container.innerHTML = "<p style='text-align:center'>There is no resource with this ID.</p>";
+return;
+}
+
+// Top title
+document.getElementById('title').textContent = item.name;
+document.getElementById('subtitle').textContent = `Version ${item.version}`;
+
+// Main content
+container.innerHTML = `
+<div class="detail-main">
+<img src="${item.thumbnail}" alt="${item.name}">
+<h2>Description</h2>
+<p>${item.description}</p>
+<div class="tags">
+${item.tags.map(t=>`<span>${t}</span>`).join('')}
+</div>
+</div>
+<aside class="side-box">
+<h3>Quick Info</h3>
+<div class="info-line"><strong>Author:</strong> ${item.author}</div>
+<div class="info-line"><strong>Size:</strong> ${item.filesize || 'unknown'}</div>
+<div class="info-line"><strong>Version:</strong> ${item.version}</div>
+<a class="btn-download" href="${item.download_url}" target="_blank" rel="noopener">⬇ Direct Download</a>
+<p style="margin-top:1rem">
+<a href="docs.html#${item.id}" style="color:var(--accent2)">📄 Installation Instructions</a>
+</p>
+</aside>
+<aside class="side-box">
+<a class="btn-download" href="../index.html"> Return to Home Page</a>
+<a class="btn-download" href="../downloads.html"> Return to Downloads Page</a>
+<a class="btn-download" href="../maps.html"> Return to Maps Page</a>
+<aside>
+`;
+})
+.catch(err=>{
+document.getElementById('resource-detail').innerHTML = "<p style='text-align:center'>Error loading data</p>";
+console.error(err);
+});
+</script>
+</body>
+</html>

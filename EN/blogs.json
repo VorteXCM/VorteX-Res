@@ -1,0 +1,26 @@
+[
+{
+"id": 1,
+"title":"Site Update",
+"summary": "First Site Update...",
+"content":"Our site has recently added an About Us, FAQ, and Blog section, and a new page for the site's blogs has also been added"
+},
+{
+"id": 2,
+"title":"First Map",
+"summary": "New Map",
+"content":"The first VorteX site map has been added. Click the button below to go to the map section"
+},
+{
+"id": 3,
+"title":"Adding a phone resource called LBphone to the site",
+"summary": "This resource is called LBPhone...",
+"content":"This resource is called LBPhone, but those resources available on the internet are broken or do not work, but this resource has been tested and works. To change names and programs, you must have a coder or at the same time change the name and a coding program like VSCode, which you can download from the main site. Download the program yourself."
+},
+{
+"id": 4,
+"title":"Adding a phone resource called Road Phone to the site",
+"summary": "This resource is called Road Phone...",
+"content":"This resource is called Road Phone, but those resources available on the internet are broken or do not work, but this resource has been tested and works. To change the names and programs, you must have a coder or, at the same time, a coder program like VSCode, which you can download from the main site of the program itself."
+}
+]

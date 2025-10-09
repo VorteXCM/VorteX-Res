@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width,initial-scale=1"> 
+<title>Downloads | VorteX</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://kit.fontawesome.com/0ebc5070c5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+<div class="container">
+<a href="../EN" class="logo">VorteX Res</a>
+<nav>
+<a href="downloads.html">Downloads</a>
+<a href="maps.html">Maps</a>
+<a href="docs.html">Documentation</a>
+<a class="btn" href="../">Persian</a>
+</nav>
+</div>
+</header>
+
+<section>
+<h1 class="gradient">Download Resources</h1>
+<p class="gradient">The latest resources and scripts are on this page.</p>
+<div id="resource-list" class="grid grid-3"></div>
+</section>
+
+<footer>© 2025 VorteXRes</footer>
+
+<!-- Music & Particles -->
+<button id="music-btn" style="position:fixed;bottom:20px;right:20px;background:linear-gradient(90deg,#7f5af0,#2cb9ff);border:none;color:#fff;border-radius:50%;width:50px;height:50px;cursor:pointer;z-index:9999;"><i class="fa-solid fa-music"></i></button>
+<div id="music-panel" style="display:none;position:fixed;bottom:80px;right:20px;background:rgba(0,0,0,0.6);padding:1rem;border-radius:10px;width:200px;text-align:center;z-index:9999;"> 
+<audio id="music-player" src="assets/music/background.mp3" loop></audio> 
+<button id="play-pause"><i class="fa-solid fa-play"></i></button><br><br> 
+Volume: <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+</div> 
+
+<script>
+const musicBtn = document.getElementById('music-btn');
+const musicPanel = document.getElementById('music-panel');
+const playPause = document.getElementById('play-pause');
+const audio = document.getElementById('music-player');
+const volumeSlider = document.getElementById('volume');
+
+// Open/close the music panel by clicking the main button
+musicBtn.addEventListener('click', () => {
+if(musicPanel.style.display === 'block'){
+musicPanel.style.display = 'none';
+} else {
+musicPanel.style.display = 'block';
+}
+});
+
+// Play/pause music
+playPause.addEventListener('click', () => {
+if(audio.paused){
+audio.play();
+playPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
+} else {
+audio.pause();
+playPause.innerHTML = '<i class="fa-solid fa-play"></i>';
+}
+});
+
+// Volume control
+volumeSlider.addEventListener('input', (e) => {
+audio.volume = e.target.value;
+});
+</script>
+<script src="assets/js/main.js"></script>
+<script>
+fetch('resources.json') 
+.then(res=>res.json()) 
+.then(data=>{ 
+const container = document.getElementById('resource-list'); 
+data.forEach(item=>{ 
+const el = document.createElement('div'); 
+el.className = 'card'; 
+el.innerHTML = ` <div class="card"> 
+<img style="width: 400px; height: 300px;" src="${item.thumbnail}" alt="${item.name}" class="thumb"/> 
+<div class="card-body"> 
+<h3>${item.name} <small>${item.version}</small></h3> 
+<p>${item.description}</p> 
+<p class="meta">Author: ${item.author} • Size: ${item.filesize || 'Unspecified'}</p> 
+<div class="tags">${item.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div> 
+<div class="actions"> 
+<a class="btn" href="DL/download.html?id=${item.id}">Download</a> 
+<a class="btn ghost" href="docs.html">Installation instructions</a> 
+</div> 
+</div> 
+</div>`; 
+container.appendChild(el); 
+}); 
+});
+</script>
+</body>
+</html>

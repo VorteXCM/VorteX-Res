@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
+:root {
+  --bg1: #0d0c1d;
+  --bg2: #1a1a2e;
+  --accent1: #7f5af0;
+  --accent2: #2cb9ff;
+  --text: #e6eaf2;
+}
+
+* {margin:0;padding:0;box-sizing:border-box}
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  background: radial-gradient(circle at 20% 20%, var(--bg2) 0%, var(--bg1) 100%);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+    /* تصویر بکگراند اصلی */
+  background: url('background.png') no-repeat center center fixed;
+  background-size: cover; /* پوشش کامل صفحه */
+  
+  /* Overlay تیره برای خوانایی متن */
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); /* شفافیت overlay برای متن قابل خواندن */
+  z-index: -1;
+}
+/* Particle Background Layer */
+#particles-bg {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index:-1;
+}
+
+/* Glass Header */
+header {
+  position: fixed;
+  top:0; width:100%;
+  backdrop-filter: blur(14px);
+  background: rgba(0,0,0,0.35);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  z-index: 50;
+}
+header .container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+header .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+header nav a {
+  margin: 0 1rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: color .3s;
+}
+header nav a:hover { color: var(--accent2); }
+
+/* Generic sections */
+section {
+  padding: 6rem 1rem 4rem;
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+}
+h1.gradient {
+  font-size: 3rem;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
+  margin-bottom:1rem;
+}
+p.lead {font-size:1.2rem; opacity:0.85;}
+
+/* Cards */
+.grid {display:grid; gap:1.5rem;}
+@media(min-width:768px){.grid-3{grid-template-columns:repeat(3,1fr);}}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  transition: transform .3s, box-shadow .3s;
+}
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:0 0 20px rgba(127,90,240,0.4);
+}
+.card h3 {margin-bottom:0.5rem; color:var(--accent2);}
+
+/* Buttons */
+.btn {
+  display:inline-block;
+  padding:0.8rem 1.6rem;
+  border-radius:9999px;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  transition:transform .25s, box-shadow .25s;
+}
+.btn:hover {transform:scale(1.05); box-shadow:0 0 12px var(--accent1);}
+
+/* Footer */
+footer {
+  text-align:center;
+  padding:2rem;
+  background: rgba(0,0,0,0.4);
+  margin-top: 3rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Music Player Floating Button */
+#music-toggle {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px; height: 60px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow:0 0 12px var(--accent1);
+  transition: transform .3s;
+  z-index: 60;
+}
+#music-toggle:hover {transform: scale(1.1);}
+
+/* Music Control Panel */
+#music-panel {
+  position: fixed;
+  bottom: 90px; right: 20px;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  border-radius: 15px;
+  display: none;
+  width: 200px;
+  text-align: center;
+  z-index: 60;
+}
+#music-panel input[type=range] {
+  width: 100%;
+}
+/* === DOCS PAGE === */
+.docs-container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  margin-top: 7rem;
+  padding: 0 1rem 3rem;
+  max-width: 1200px;
+}
+.docs-sidebar {
+  position: sticky;
+  top: 100px;
+  height: max-content;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 1rem;
+}
+.docs-sidebar a {
+  display: block;
+  padding: .5rem .2rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: color .3s;
+}
+.docs-sidebar a:hover,
+.docs-sidebar a.active {
+  color: var(--accent2);
+}
+
+.docs-content h2 {
+  font-size: 1.8rem;
+  color: var(--accent1);
+  margin: 2rem 0 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: .3rem;
+}
+.docs-content p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+/* Code block style */
+pre {
+  background: #1a1a2e;
+  color: #cbd5e1;
+  padding: 1rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  direction: ltr; /* برای کد انگلیسی */
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+/* برای drag cursor */
+#lightbox.grabbing {
+  cursor: grabbing;
+}
+.hero-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.image-container {
+  width: 100%;
+  max-width: 500px; /* حداکثر عرض */
+  height: 400px; /* ارتفاع ثابت برای اسکرول */
+  overflow: auto; /* اسکرول داخلی */
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(127,90,240,0.5);
+  position: relative;
+}
+.image-container-char {
+  width: 100%;
+  max-width: 640px; /* حداکثر عرض */
+  height: 358px; /* ارتفاع ثابت برای اسکرول */
+  overflow: auto; /* اسکرول داخلی */
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(127,90,240,0.5);
+  position: relative;
+}
+
+.image-container img {
+  display: block;
+  width: 100%; /* عکس بزرگتر از container خودش کشیده میشه */
+  height: auto;
+  transition: transform 0.3s;
+  cursor: grab;
+}
+
+/* Drag cursor */
+.image-container img:active {
+  cursor: grabbing;
+}
+/* Play/Pause Button */
+#play-pause {
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(127,90,240,0.6);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+#play-pause:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(44,185,255,0.7);
+}
+
+#play-pause:active {
+  transform: scale(0.95);
+}

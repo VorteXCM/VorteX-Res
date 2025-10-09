@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API | FiveM Hub Documentation</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<nav class="sidebar">
+<h2>Documentation</h2>
+<a href="index.html">Introduction</a>
+<a href="Loading-Screen/">LoadingScreen</a>
+<a href="NoPixel-FullServer/">NoPixel Full Server</a>
+<a href="api.html" class="active">API</a>
+<a href="faq.html">FAQ</a>
+<hr>
+<a href="../index.html">← Return to main site</a>
+</nav>
+
+<main class="main-content">
+<h1>API</h1>
+<p>Example of using the internal API:</p>
+<pre>
+fetch('https://yourserver/api')
+.then(res => res.json())
+.then(data => console.log(data)); 
+</pre>
+</main>
+
+<button id="music-btn" style="position:fixed;bottom:20px;left:20px;background:linear-gradient(90deg,#7f5af0,#2cb9ff);border:none;color:#fff;border-radius:50%;width:50px;height:50px;cursor:pointer;">🎵</button>
+<div id="music-panel" style="display:none;position:fixed;bottom:80px;left:20px;background:rgba(0,0,0,0.6);padding:1rem;border-radius:10px;width:200px;text-align:center;"> 
+<audio id="player" src="assets/music/bg-music.mp3" loop></audio> 
+<button id="play">▶️</button> 
+<button id="pause">⏸️</button> 
+<br><br> 
+Sound: <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+</div>
+
+<script src="assets/js/music.js"></script>
+</body>
+</html>

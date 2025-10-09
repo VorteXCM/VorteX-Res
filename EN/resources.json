@@ -1,0 +1,24 @@
+[
+{
+"id": "LB-Phone",
+"name": "LB Phone 2.0",
+"version": "2.3.1",
+"description": "This script is clean and works perfectly",
+"author": "VorteXCM",
+"filesize": "14 MB",
+"download_url": "https://raw.githubusercontent.com/VorteXCM/VorteX-Res/refs/heads/main/assets/DL/lbphone.rar",
+"tags": ["Phone","ESX","QBCore","vRP","OX","QBox or Standalone","Free"],
+"thumbnail": "https://raw.githubusercontent.com/VorteXCM/VorteX-Res/refs/heads/main/assets/imgs/lbphone.jpg"
+},
+{
+"id": "Road-Phone",
+"name": "RoadPhone",
+"version": "1.2.0",
+"description": "This script is clean and works perfectly",
+"author": "VorteXCM", 
+"filesize": "43 MB", 
+"download_url": "https://raw.githubusercontent.com/VorteXCM/VorteX-Res/refs/heads/main/assets/DL/roadphone.rar", 
+"tags": ["ESX","Free"], 
+"thumbnail": "https://raw.githubusercontent.com/VorteXCM/VorteX-Res/refs/heads/main/assets/imgs/roadphone.jpg" 
+}
+]
